@@ -39,11 +39,5 @@ Capybara.configure do |config|
   config.save_path = 'failure_assets'
   config.default_max_wait_time = 5 # Waiting for an element will timeout at 5 seconds
   config.default_normalize_ws = true # Allow relaxed matching of lengthier blocks of text
-  config.default_driver = :selenium_chrome_headless
+  config.default_driver = :selenium_chrome
 end
-
-# Capybara.save_path = 'failure_assets'
-# Capybara.default_max_wait_time = 5 # Waiting for an element will timeout at 5 seconds
-# Capybara.default_normalize_ws = true # Allow relaxed matching of lengthier blocks of text
-
-# Capybara.default_driver = :selenium_chrome
