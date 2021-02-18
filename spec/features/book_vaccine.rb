@@ -70,9 +70,16 @@ def select_time
   within_window @win do
     click_button 'Select Visit Time'
     page.should have_text 'Please select the preferred time period'
-    first('[type="radio"]').click # Click first available
-    click_button 'Next'
-    page.should have_text 'Enter Recipient Information for the Event'
+    selected = false
+    while !selected
+      all('[type="radio"]').sample.click # Click random available appointment
+      click_button 'Next'
+      if page.has_text?('Enter Recipient Information for the Event', :wait => 1)
+        selected = true
+      else
+        page.should have_text 'The time slot you have selected has been taken. Please select a new time slot from below.'
+      end
+    end
   end
 end
 
