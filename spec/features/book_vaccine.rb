@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+NUM_LOCATIONS = 3
 BDAY = '01011970' # MMDDYYYY
 ZIP = '11373'
 FIRST = 'Anthony'
@@ -10,8 +11,6 @@ COUNTY = 'Queens'
 STATE = 'New York'
 PHONE = '7185551234'
 EMAIL = 'drfauci@nih.gov'
-RACE = 'White'
-ETHNICITY = 'Non-Hispanic'
 
 feature "Book Covid-19 appointment on NYS website" do
 
@@ -45,7 +44,7 @@ end
 def wait_for_appointment
   found = false
   while !found
-    ['0', '1', '2'].each do |num|
+    (0..NUM_LOCATIONS).each do |num|
       section_css_id = '#section_%s' % num
       section_name = find(section_css_id).find(:xpath, '..').find('h4').text
       if find(section_css_id).has_no_text?('No Appointments Available Currently', :wait => 1)
@@ -99,8 +98,8 @@ def continue_appointment
     find('#datepicker').set(BDAY)
     click_button 'Next'
     page.should have_text 'Enter Patient Demographics Information'
-    select(RACE, :from => 'Race')
-    select(ETHNICITY, :from => 'Ethnicity')
+    select('No Response', :from => 'Race')
+    select('No Response', :from => 'Ethnicity')
     click_button 'Next'
     page.should have_text 'Enter On-Site Requirements'
     select('Personally, Owned Vehicle', :from => 'transportationID')
