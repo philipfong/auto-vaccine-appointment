@@ -1,7 +1,7 @@
 # auto-vaccine-appointment
 Automatically searches for and completes booking of Covid-19 vaccination appointment. New York State only.
 
-# How does this work?
+### How does this work? ###
 
 This script opens a Chrome browser, waits for appointments to open up, and once available with select a random time slot and complete the entire booking process automatically.
 
