@@ -44,7 +44,7 @@ end
 def wait_for_appointment
   found = false
   while !found
-    (0..NUM_LOCATIONS).each do |num|
+    (0..NUM_LOCATIONS-1).each do |num|
       section_css_id = '#section_%s' % num
       section_name = find(section_css_id).find(:xpath, '..').find('h4').text
       if find(section_css_id).has_no_text?('No Appointments Available Currently', :wait => 1)
