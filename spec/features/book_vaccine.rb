@@ -30,7 +30,7 @@ def complete_prescreen
   page.should have_text 'Last updated'
   click_button 'Get Started'
   find('[placeholder="MM/DD/YYYY"]').set(BDAY)
-  find('[aria-labelledby="gender_group_label"]').first('div').click # Male
+  find('[aria-labelledby="gender_group_label"]').all('.ux-radio').last.click # Sex: Prefer not to answer
   find('[aria-labelledby="nyresident_label"]').first('div').click # Yes
   find('[aria-labelledby="nyworker_label"]').first('div').click # Yes
   find('#zip').set(ZIP)
