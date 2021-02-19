@@ -31,12 +31,14 @@ def complete_prescreen
   click_button 'Get Started'
   find('[placeholder="MM/DD/YYYY"]').set(BDAY)
   find('[aria-labelledby="gender_group_label"]').all('.ux-radio').last.click # Sex: Prefer not to answer
-  find('[aria-labelledby="nyresident_label"]').first('div').click # Yes
-  find('[aria-labelledby="nyworker_label"]').first('div').click # Yes
+  find('[aria-labelledby="nyresident_label"]').first('div').click # Yes, live in NY
+  find('[aria-labelledby="nyworker_label"]').first('div').click # Yes, work in NY
   find('#zip').set(ZIP)
-  find('[aria-labelledby="underlyingCondition_label"]').first('div').click # Yes
-  find('[aria-labelledby="underlyingConditionConfirm_label"]').first('div').click # Yes
-  all('.ux-row')[5].click # I consent
+  if page.has_text?('Additional Information', :wait => 2) # Shows up if under 65 years of age
+    find('[aria-labelledby="underlyingCondition_label"]').first('div').click # Yes, I have health issues
+    find('[aria-labelledby="underlyingConditionConfirm_label"]').first('div').click # Yes, I have one of the things
+  end
+  find('.ux-row', :text => 'I consent').click # I consent
   click_button 'Submit'
   page.should have_text 'Based on what you have told us, you are eligible to receive a vaccine.'
 end
