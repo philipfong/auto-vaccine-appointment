@@ -14,7 +14,7 @@ EMAIL = 'drfauci@nih.gov'
 
 feature "Book Covid-19 appointment on NYS website" do
 
-  scenario "Check help site and page components" do
+  scenario "Complete booking" do
     complete_prescreen
     click_button 'Locate Providers'
     wait_for_appointment
