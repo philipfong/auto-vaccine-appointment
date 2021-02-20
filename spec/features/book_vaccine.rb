@@ -1,13 +1,14 @@
 require 'spec_helper'
 
-NUM_LOCATIONS = 3
+PREFERRED_LOCATION = 'NONE' # Or specify a location like 'JAVITS CENTER'
+NUM_LOCATIONS = 3 # If no preferred location, find appts at top 3 results
 BDAY = '01011970' # MMDDYYYY
 ZIP = '11373'
 FIRST = 'Anthony'
 LAST = 'Fauci'
 ADDR = '79-01 Broadway'
 CITY = 'Elmhurst'
-COUNTY = 'Queens'
+COUNTY = 'Queens' # Other option I've seen available is 'Nassau'
 STATE = 'New York'
 PHONE = '7185551234'
 EMAIL = 'drfauci@nih.gov'
@@ -44,25 +45,45 @@ def complete_prescreen
 end
 
 def wait_for_appointment
+  if PREFERRED_LOCATION != 'NONE'
+    section = find('div h4', :text => PREFERRED_LOCATION).find(:xpath, '../../..')
+    @win = window_opened_by do
+      section.click_link 'Schedule your vaccine appointment'
+    end
+  end
   found = false
   while !found
-    (0..NUM_LOCATIONS-1).each do |num|
-      section_css_id = '#section_%s' % num
-      section_name = find(section_css_id).find(:xpath, '..').find('h4').text
-      if find(section_css_id).has_no_text?('No Appointments Available Currently', :wait => 1)
-        found = true
-        Log.info 'FOUND APPOINTMENT AT %s!' % section_name
-        @win = window_opened_by do
-          find(section_css_id).click_link 'Schedule your vaccine appointment'
+    if PREFERRED_LOCATION != 'NONE'
+      within_window @win do
+        page.should have_text 'Department of Health'
+        if page.has_no_text?('No Appointments Available', :wait => 2)
+          Log.info 'FOUND APPOINTMENT AT %s!' % PREFERRED_LOCATION
+          found = true
+        else
+          Log.info 'No appointments found at %s' % PREFERRED_LOCATION
+          sleep 10
+          page.refresh
         end
-        break
-      else
-        Log.info 'No appointments found at %s' % section_name
       end
-    end
-    if found == false
-      click_button 'Update'
-      sleep 10 # Wait a little before refresh
+    else
+      (0..NUM_LOCATIONS-1).each do |num|
+        section_css_id = '#section_%s' % num
+        section_name = find(section_css_id).find(:xpath, '..').find('h4').text
+        if find(section_css_id).has_no_text?('No Appointments Available Currently', :wait => 1)
+          found = true
+          Log.info 'FOUND APPOINTMENT AT %s!' % section_name
+          @win = window_opened_by do
+            find(section_css_id).click_link 'Schedule your vaccine appointment'
+          end
+          break
+        else
+          Log.info 'No appointments found at %s' % section_name
+        end
+      end
+      if found == false
+        sleep 10
+        click_button 'Update'
+      end
     end
   end
 end
