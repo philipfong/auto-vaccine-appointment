@@ -3,7 +3,7 @@ Automatically searches for and completes booking of Covid-19 vaccination appoint
 
 ### How does this work? ###
 
-This script opens a Chrome browser, waits for appointments to open up, and once available with select a random time slot and complete the entire booking process automatically.
+This script opens a Chrome browser, waits for appointments to open up, and once available will select a random time slot and complete the entire booking process automatically.
 
 ### Installation ###
 
