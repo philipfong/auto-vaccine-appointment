@@ -61,7 +61,7 @@ def wait_for_appointment
           found = true
         else
           Log.info 'No appointments found at %s' % PREFERRED_LOCATION
-          sleep 3
+          sleep 10
           page.refresh
         end
       end
