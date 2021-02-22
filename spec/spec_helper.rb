@@ -22,6 +22,7 @@ require 'logger'
 require 'helper_functions'
 
 RSpec.configure do |config|
+  config.include Capybara::DSL
   config.order = 'default' # Run specs in default order
   config.expect_with :rspec do |c| # Allow should syntax, which is now deprecated in rspec3
     c.syntax = [:should, :expect]
