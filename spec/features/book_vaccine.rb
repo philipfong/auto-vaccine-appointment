@@ -54,7 +54,7 @@ end
 def wait_for_appointment
   found = false
   if PREFERRED_LOCATION != 'NONE'
-    section = find('div h4', :text => PREFERRED_LOCATION).find(:xpath, '../../..')
+    section = find('div h4', :text => PREFERRED_LOCATION.upcase).find(:xpath, '../../..')
     @win = window_opened_by do
       section.click_link 'Schedule your vaccine appointment'
     end
@@ -62,10 +62,10 @@ def wait_for_appointment
       within_window @win do
         page.should have_text 'Department of Health'
         if page.has_no_text?('No Appointments Available', :wait => 2)
-          Log.info 'FOUND APPOINTMENT AT %s!' % PREFERRED_LOCATION
+          Log.info 'FOUND APPOINTMENT AT %s!' % PREFERRED_LOCATION.upcase
           found = true
         else
-          Log.info 'No appointments found at %s' % PREFERRED_LOCATION
+          Log.info 'No appointments found at %s' % PREFERRED_LOCATION.upcase
           sleep REFRESH_INTERVAL
           page.refresh
         end
