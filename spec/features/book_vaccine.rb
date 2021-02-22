@@ -17,17 +17,17 @@ EMAIL = 'drfauci@nih.gov'
 feature "Book Covid-19 appointment on NYS website" do
 
   scenario "Complete booking" do
-    begin
+    # begin
       complete_prescreen
       click_button 'Locate Providers'
       wait_for_appointment
       select_time
       continue_appointment
       complete_screening
-    rescue Exception => e
-      Log.error 'Something major went wrong. Please report this error: %s' % e
-      retry
-    end
+    # rescue Exception => e
+    #   Log.error 'Something major went wrong. Please report this error: %s' % e
+    #   retry
+    # end
   end
 
 end
