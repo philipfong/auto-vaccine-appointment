@@ -17,17 +17,20 @@ EMAIL = 'drfauci@nih.gov'
 feature "Book Covid-19 appointment on NYS website" do
 
   scenario "Complete booking" do
-    # begin
+    begin
       complete_prescreen
       click_button 'Locate Providers'
       wait_for_appointment
       select_time
       continue_appointment
       complete_screening
-    # rescue Exception => e
-    #   Log.error 'Something major went wrong. Please report this error: %s' % e
-    #   retry
-    # end
+    rescue RSpec::Expectations::ExpectationNotMetError => e
+      Log.error 'Something went wrong in RSpec exepctations. Error was: %s' % e
+      retry
+    rescue Capybara::ElementNotFound => e
+      Log.error 'Something went wrong in Capybara finder. Error was: %s' % e
+      retry
+    end
   end
 
 end
