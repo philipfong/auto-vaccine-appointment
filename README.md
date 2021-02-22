@@ -15,5 +15,5 @@ This script opens a Chrome browser, waits for appointments to open up, and once 
 ### Running ###
 
 1. There are a bunch of constants at the top of the file named `book_vaccine.rb`. Update those to reflect your own personal information.
-2. `rspec spec/features/book_vaccine.rb`
+2. `rspec spec/features/book_vaccine.rb > booking.log`
 3. Wait forever because appointment slots never seem to open up anyway, unless you're in Potsdam, NY.
