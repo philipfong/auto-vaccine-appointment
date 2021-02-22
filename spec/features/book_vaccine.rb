@@ -48,6 +48,7 @@ def complete_prescreen
   find('.ux-row', :text => 'I consent').click # I consent
   click_button 'Submit'
   page.should have_text 'Based on what you have told us, you are eligible to receive a vaccine.'
+  Log.info 'Prescreen completed.'
 end
 
 def wait_for_appointment
@@ -109,6 +110,7 @@ def select_time
       end
     end
   end
+  Log.info 'Timeslot selected.'
 end
 
 def continue_appointment
@@ -145,6 +147,7 @@ def continue_appointment
     page.should have_text 'Enter Primary Care Provider'
     click_button 'Next'
     page.should have_text 'Screening Questions'
+    Log.info 'Personal information completed.'
   end
 end
 
