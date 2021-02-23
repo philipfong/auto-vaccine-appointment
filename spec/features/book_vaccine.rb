@@ -171,8 +171,9 @@ def complete_screening
     click_button 'Continue'
     page.should have_text 'Review your Information'
     click_button 'Register'
-    Log.info 'Registration should have completed'
-    sleep 10 # I'm not sure what the page looks at this end step, so sleep and take screenshot
+    Log.info 'Registration should have completed, we have just clicked "Register".'
+    page.should have_text 'Appointment Confirmation'
+    Log.info 'Congratulations. Your appointment has been booked.'
     page.save_screenshot
   end
 end
