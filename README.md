@@ -20,4 +20,4 @@ This script opens a Chrome browser, waits for appointments to open up, and once 
 
 When it finds something it'll look like this:
 
-![](https://media4.giphy.com/media/Ub6MuiaPwBJeOPlq2J/giphy.gif)
+![](https://media.giphy.com/media/Ub6MuiaPwBJeOPlq2J/giphy.gif)
