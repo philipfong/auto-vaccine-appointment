@@ -160,8 +160,8 @@ def complete_screening
     while !completed
       find('input[value="N"]').click
       click_button 'Next'
-      sleep 1 # It's just easier to do this
-      if page.has_text?('I have read the entire list of priority groups', :wait => 1)
+      sleep 0.25 # It's just easier to do this
+      if page.has_text?('I have read the entire list of priority groups', :wait => 0.25)
         find('input[value="Y"]').click
         completed = true
       end
