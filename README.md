@@ -5,6 +5,8 @@ Automatically searches for and completes booking of Covid-19 vaccination appoint
 
 This script opens a Chrome browser, waits for appointments to open up, and once available will select a random time slot and complete the entire booking process automatically.
 
+Update (3/30/2021): This script is a lot less effective now that many of the vaccination sites have implemented captchas (while strangely, others have not like the J&J Javitz Center appointments). I've implemented some quick & hacky code in scenario #1 of the feature spec that will assist with page refreshes there.
+
 ### Installation ###
 
 1. Install a Ruby version manager such as rbenv or rvm (on Windows, check out https://rubyinstaller.org/)
