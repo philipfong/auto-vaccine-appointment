@@ -31,7 +31,7 @@ feature "Book Covid-19 appointment on NYS website" do
           page.refresh
         else
           Log.info 'FOUND SOMETHING'
-          sleep Integer::MAX
+          sleep 10000
         end
       end
     end
