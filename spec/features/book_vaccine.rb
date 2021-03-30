@@ -16,6 +16,27 @@ EMAIL = 'drfauci@nih.gov'
 
 feature "Book Covid-19 appointment on NYS website" do
 
+  scenario "Refresh page for J&J vaccine" do # Legitimately worked on 3/30, when eligibility opened up. No captcha on this page for some reason.
+    visit 'https://am-i-eligible.covid19vaccine.health.ny.gov/'
+    sleep 60 # Complete form here
+    section = find('div h4', :text => 'JAVITS CENTER ( 26.9 MILES ) VACCINE TYPE: JANSSEN – J & J').find(:xpath, '../../..')
+    @win = window_opened_by do
+      section.click_link 'Schedule your vaccine appointment'
+    end
+    found = false
+    within_window @win do
+      sleep 10
+      while !found
+        if page.has_text?('No Appointments Available', :wait => 1)
+          page.refresh
+        else
+          Log.info 'FOUND SOMETHING'
+          sleep Integer::MAX
+        end
+      end
+    end
+  end
+
   scenario "Complete booking" do
     begin
       complete_prescreen
